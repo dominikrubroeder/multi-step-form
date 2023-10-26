@@ -1,6 +1,8 @@
 import { ReactNode } from "react";
 import SidebarBackground from "@/components/svg/SidebarBackground";
 import StepContent from "@/components/StepContent";
+import YourInfo from "@/components/step-content/YourInfo";
+import SelectYourPlan from "@/components/step-content/SelectYourPlan";
 
 interface SidebarProps {
   currentStep: number;
@@ -8,65 +10,43 @@ interface SidebarProps {
 }
 
 interface Step {
+  stepTitle: string;
   headline: string;
+  subline: string;
   content: ReactNode;
 }
 
 export const steps: Step[] = [
   {
-    headline: "Your info",
+    stepTitle: "Your info",
+    headline: "Personal info",
+    subline: "Please provide your name, email address, and phone number.",
     content: (
       <StepContent>
-        <form className="grid gap-4">
-          <div className="grid gap-1">
-            <label htmlFor="name" className="text-xs text-blue-900">
-              Name
-            </label>
-            <input
-              name="name"
-              type="text"
-              placeholder="e.g. Stephen King"
-              className="px-3 py-1.5 rounded-md border"
-            />
-          </div>
-
-          <div className="grid gap-1">
-            <label htmlFor="Email" className="text-xs text-blue-900">
-              Email Address
-            </label>
-            <input
-              name="Email"
-              type="email"
-              placeholder="e.g. stephenking@lorem.com"
-              className="px-3 py-1.5 rounded-md border"
-            />
-          </div>
-
-          <div className="grid gap-1">
-            <label htmlFor="phone" className="text-xs text-blue-900">
-              Phone Number
-            </label>
-            <input
-              name="phone"
-              type="number"
-              placeholder="e.g. +1 234 567 890"
-              className="px-3 py-1.5 rounded-md border"
-            />
-          </div>
-        </form>
+        <YourInfo />
       </StepContent>
     ),
   },
   {
-    headline: "Select plan",
+    stepTitle: "Select plan",
+    headline: "Select your plan",
+    subline: "You have the option of monthly or yearly billing.",
+    content: (
+      <StepContent>
+        <SelectYourPlan />
+      </StepContent>
+    ),
+  },
+  {
+    stepTitle: "Add-ons",
+    headline: "Pick add-ons",
+    subline: "Add-ons help enhance your gaming experience.",
     content: <StepContent>Step content here</StepContent>,
   },
   {
-    headline: "Add-ons",
-    content: <StepContent>Step content here</StepContent>,
-  },
-  {
-    headline: "Summary",
+    stepTitle: "Summary",
+    headline: "Finishing up",
+    subline: "Double-check everything looks OK before confirming.",
     content: <StepContent>Step content here</StepContent>,
   },
 ];
@@ -95,7 +75,7 @@ export default function Sidebar({ currentStep, setStep }: SidebarProps) {
                 Step {index + 1}
               </small>
               <h3 className="uppercase font-bold text-xs tracking-widest leading-normal">
-                {step.headline}
+                {step.stepTitle}
               </h3>
             </div>
           </div>
