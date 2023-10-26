@@ -24,7 +24,7 @@ export default function StepLayout({
         {steps[step - 1].content}
       </div>
 
-      <footer className="p-4 bg-white">
+      <footer className="sticky bottom-0 p-4 bg-white">
         <div className="flex items-center justify-between max-w-md w-full mx-auto md:max-w-none">
           <button
             className={`text-gray-400 transition ${
