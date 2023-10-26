@@ -1,7 +1,7 @@
 "use client";
-import { useState } from "react";
+import { useOrder } from "@/context/order-context";
 
-interface AddOn {
+export interface AddOn {
   title: string;
   subline: string;
   monthlyPrice: number;
@@ -30,26 +30,12 @@ const addOns: AddOn[] = [
 ];
 
 export default function PickAddOns() {
-  const [selectedAddOns, setSelectedAddOns] = useState<AddOn[]>([]);
+  const { order, dispatch } = useOrder();
+
   const isSelected = (addOn: AddOn) =>
-    !!selectedAddOns.find(
-      (selectedAddon) => addOn.title === selectedAddon.title,
+    !!order.addOns.find(
+      (selectedAddOns) => selectedAddOns.title === addOn.title,
     );
-
-  const addAddOn = (addOn: AddOn) => {
-    setSelectedAddOns((prevState) => [...prevState, addOn]);
-  };
-  const removeAddOn = (addOn: AddOn) => {
-    setSelectedAddOns((prevState) => [
-      ...prevState.filter(
-        (selectedAddOn) => selectedAddOn.title !== addOn.title,
-      ),
-    ]);
-  };
-
-  const toggleAddOn = (addOn: AddOn) => {
-    isSelected(addOn) ? removeAddOn(addOn) : addAddOn(addOn);
-  };
 
   return (
     <div className="grid gap-4">
@@ -61,7 +47,7 @@ export default function PickAddOns() {
               ? "border-blue-900 bg-sky-50"
               : "border-gray-200 bg-transparent"
           }`}
-          onClick={() => toggleAddOn(addOn)}
+          onClick={() => dispatch({ type: "TOGGLE_ADDON", payload: addOn })}
         >
           <input type="checkbox" checked={isSelected(addOn)} />
           <div className="flex-1">

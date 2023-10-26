@@ -1,3 +1,9 @@
+export interface UserInfo {
+  name: string;
+  email: string;
+  phoneNumber: string;
+}
+
 export default function YourInfo() {
   return (
     <form className="grid gap-4">

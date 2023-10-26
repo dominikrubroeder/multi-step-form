@@ -5,11 +5,7 @@ import YourInfo from "@/components/step-content/YourInfo";
 import SelectYourPlan from "@/components/step-content/SelectYourPlan";
 import PickAddOns from "@/components/step-content/PickAddOns";
 import Summary from "@/components/step-content/Summary";
-
-interface SidebarProps {
-  currentStep: number;
-  setStep: (to: number) => void;
-}
+import { useOrder } from "@/context/order-context";
 
 interface Step {
   stepTitle: string;
@@ -61,7 +57,9 @@ export const steps: Step[] = [
   },
 ];
 
-export default function Sidebar({ currentStep, setStep }: SidebarProps) {
+export default function Sidebar() {
+  const { order, dispatch } = useOrder();
+
   return (
     <div className="relative grid items-start content-start gap-8">
       <div className="absolute left-1/2 -translate-x-1/2 flex gap-8 p-8 md:left-auto md:-translate-x-0 md:grid md:items-start md:content-start">
@@ -69,11 +67,11 @@ export default function Sidebar({ currentStep, setStep }: SidebarProps) {
           <div
             key={index + 1}
             className="flex gap-3.5 text-white cursor-pointer"
-            onClick={() => setStep(index + 1)}
+            onClick={() => dispatch({ type: "SET_STEP", payload: index + 1 })}
           >
             <div
               className={`flex items-center justify-center rounded-full w-8 h-8 border border-sky-200 text-xs font-semibold transition ${
-                index + 1 === currentStep
+                index + 1 === order.step
                   ? "text-blue-900 bg-sky-200"
                   : "text-white bg-transparent"
               }`}
