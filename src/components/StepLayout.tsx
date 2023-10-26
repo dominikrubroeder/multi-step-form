@@ -12,8 +12,8 @@ export default function StepLayout({
   previousStep,
 }: StepLayoutProps) {
   return (
-    <div className="relative flex flex-col justify-between md:px-16 md:pt-8 md:pb-4">
-      <div className="grid gap-8 bg-white rounded-2xl max-w-md mx-auto w-full px-4 py-6 -translate-y-[5rem]">
+    <div className="relative flex flex-col justify-between md:pt-8 md:pb-4 lg:px-16">
+      <div className="grid gap-8 bg-white rounded-2xl max-w-md mx-auto w-full px-4 py-6 -translate-y-[5rem] md:-translate-y-0">
         <header className="grid gap-2">
           <h2 className="text-3xl font-bold text-blue-900">
             {steps[step - 1].headline}

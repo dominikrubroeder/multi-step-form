@@ -1,5 +1,5 @@
-import SidebarBackground from "@/components/svg/SidebarBackground";
 import { ReactNode } from "react";
+import SidebarBackground from "@/components/svg/SidebarBackground";
 import StepContent from "@/components/StepContent";
 
 interface SidebarProps {
@@ -74,7 +74,7 @@ export const steps: Step[] = [
 export default function Sidebar({ currentStep, setStep }: SidebarProps) {
   return (
     <div className="relative grid items-start content-start gap-8">
-      <div className="absolute left-1/2 -translate-x-1/2 flex gap-8 p-8 md:grid md:items-start md:content-start">
+      <div className="absolute left-1/2 -translate-x-1/2 flex gap-8 p-8 md:left-auto md:-translate-x-0 md:grid md:items-start md:content-start">
         {steps.map((step, index) => (
           <div
             key={index + 1}
