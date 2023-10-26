@@ -53,7 +53,7 @@ export default function SelectYourPlan() {
         {billingPlans.map((plan, index) => (
           <div
             key={index}
-            className={`flex flex-col justify-between gap-1 border rounded p-4 min-h-[10rem] transition cursor-pointer ${
+            className={`flex flex-col justify-between gap-1 border rounded-lg p-4 min-h-[10rem] transition cursor-pointer ${
               plan.title === selectedPlan ? "bg-sky-50" : "bg-transparent"
             }`}
             onClick={() => setSelectedPlan(plan.title)}
@@ -75,7 +75,7 @@ export default function SelectYourPlan() {
         ))}
       </div>
 
-      <div className="flex gap-2 bg-sky-50 justify-center items-center p-4 rounded">
+      <div className="flex gap-2 bg-sky-50 justify-center items-center p-4 rounded-lg">
         <div
           className="cursor-pointer"
           onClick={() => setBillingPeriod("Monthly")}
