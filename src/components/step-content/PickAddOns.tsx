@@ -36,6 +36,10 @@ export default function PickAddOns() {
     !!order.addOns.find(
       (selectedAddOns) => selectedAddOns.title === addOn.title,
     );
+  const price = (addOn: AddOn) =>
+    order.billingPeriod === "Monthly"
+      ? `${addOn.monthlyPrice}/mo`
+      : `${addOn.yearlyPrice}/yr`;
 
   return (
     <div className="grid gap-4">
@@ -54,7 +58,7 @@ export default function PickAddOns() {
             <h3 className="font-semibold text-blue-900">{addOn.title}</h3>
             <p className="text-gray-400">{addOn.subline}</p>
           </div>
-          <div className="text-sm text-blue-900">+${addOn.monthlyPrice}/mo</div>
+          <div className="text-sm text-blue-900">+${price(addOn)}</div>
         </div>
       ))}
     </div>
