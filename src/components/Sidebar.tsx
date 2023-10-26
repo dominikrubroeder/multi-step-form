@@ -4,6 +4,7 @@ import StepContent from "@/components/StepContent";
 import YourInfo from "@/components/step-content/YourInfo";
 import SelectYourPlan from "@/components/step-content/SelectYourPlan";
 import PickAddOns from "@/components/step-content/PickAddOns";
+import Summary from "@/components/step-content/Summary";
 
 interface SidebarProps {
   currentStep: number;
@@ -52,7 +53,11 @@ export const steps: Step[] = [
     stepTitle: "Summary",
     headline: "Finishing up",
     subline: "Double-check everything looks OK before confirming.",
-    content: <StepContent>Step content here</StepContent>,
+    content: (
+      <StepContent>
+        <Summary />
+      </StepContent>
+    ),
   },
 ];
 

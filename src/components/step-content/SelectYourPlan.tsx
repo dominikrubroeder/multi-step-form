@@ -54,7 +54,9 @@ export default function SelectYourPlan() {
           <div
             key={index}
             className={`flex flex-col justify-between gap-1 border rounded-lg p-4 min-h-[10rem] transition cursor-pointer ${
-              plan.title === selectedPlan ? "bg-sky-50" : "bg-transparent"
+              plan.title === selectedPlan
+                ? "bg-sky-50 border-blue-900"
+                : "bg-transparent border-gray-200"
             }`}
             onClick={() => setSelectedPlan(plan.title)}
           >
