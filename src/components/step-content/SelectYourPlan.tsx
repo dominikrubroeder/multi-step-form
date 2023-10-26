@@ -1,30 +1,41 @@
 "use client";
-import { useState } from "react";
+import { JSX, useState } from "react";
+import IconArcade from "@/components/svg/IconArcade";
+import IconAdvanced from "@/components/svg/IconAdvanced";
+import IconPro from "@/components/svg/IconPro";
 
 type BillingPlanTitle = "Arcade" | "Advanced" | "Pro";
 type BillingPeriod = "Monthly" | "Yearly";
 
 interface BillingPlan {
   title: BillingPlanTitle;
+  icon: JSX.Element;
   monthlyPayment: number;
   yearlyPayment: number;
+  yearlyHint: string;
 }
 
 const billingPlans: BillingPlan[] = [
   {
     title: "Arcade",
+    icon: <IconArcade />,
     monthlyPayment: 9,
     yearlyPayment: 90,
+    yearlyHint: "2 month free",
   },
   {
     title: "Advanced",
+    icon: <IconAdvanced />,
     monthlyPayment: 12,
     yearlyPayment: 120,
+    yearlyHint: "2 month free",
   },
   {
     title: "Pro",
+    icon: <IconPro />,
     monthlyPayment: 15,
     yearlyPayment: 150,
+    yearlyHint: "2 month free",
   },
 ];
 
@@ -38,7 +49,7 @@ export default function SelectYourPlan() {
   };
   return (
     <div className="grid gap-4">
-      <div className="flex gap-4">
+      <div className="grid gap-4 md:grid-cols-3">
         {billingPlans.map((plan, index) => (
           <div
             key={index}
@@ -47,7 +58,7 @@ export default function SelectYourPlan() {
             }`}
             onClick={() => setSelectedPlan(plan.title)}
           >
-            <div>Icon here</div>
+            {plan.icon}
             <div>
               <h3 className="font-bold text-blue-900">{plan.title}</h3>
               <p>
@@ -56,6 +67,9 @@ export default function SelectYourPlan() {
                   ? `${plan.monthlyPayment}/mo`
                   : `${plan.yearlyPayment}/yr`}
               </p>
+              {billingPeriod === "Yearly" && (
+                <p className="text-xs text-blue-900">{plan.yearlyHint}</p>
+              )}
             </div>
           </div>
         ))}

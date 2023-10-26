@@ -10,7 +10,7 @@ export default function Home() {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between md:p-24">
-      <div className="bg-sky-100 grid gap-4 w-full md:p-4 md:max-w-screen-md md:rounded-2xl md:bg-white md:grid-cols-[auto_1fr]">
+      <div className="bg-sky-100 grid gap-4 w-full md:p-4 md:rounded-2xl md:bg-white md:grid-cols-[auto_1fr]">
         <Sidebar currentStep={step} setStep={(to: number) => setStep(to)} />
         <StepLayout
           step={step}
