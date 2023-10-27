@@ -15,6 +15,7 @@ import {
 import IconArcade from "@/components/svg/IconArcade";
 import IconAdvanced from "@/components/svg/IconAdvanced";
 import IconPro from "@/components/svg/IconPro";
+import { steps } from "@/components/Sidebar";
 
 export const billingPlans: BillingPlan[] = [
   {
@@ -40,10 +41,13 @@ export const billingPlans: BillingPlan[] = [
   },
 ];
 
+export type UserFormField = "name" | "email" | "phoneNumber";
+
 // Define the shape of your order
 interface Order {
   step: number;
   userInfo: UserInfo;
+  formErrors: { name: boolean; email: boolean; phoneNumber: boolean };
   billingPeriod: BillingPeriod;
   billingPlan: BillingPlan;
   addOns: AddOn[];
@@ -52,8 +56,13 @@ interface Order {
 // Define the actions for manipulating the order state
 type OrderAction =
   | { type: "SET_STEP"; payload: number }
-  | { type: "SET_USER_INFO"; payload: UserInfo }
+  | {
+      type: "SET_USER_INFO";
+      payload: { property: UserFormField; value: string };
+    }
   | { type: "REMOVE_USER_INFO"; payload: string }
+  | { type: "SET_FORM_ERROR"; payload: UserFormField }
+  | { type: "REMOVE_FORM_ERROR"; payload: UserFormField }
   | { type: "SET_BILLING_PLAN"; payload: BillingPlan }
   | { type: "SET_BILLING_PERIOD"; payload: BillingPeriod }
   | { type: "ADD_ADDON"; payload: AddOn }
@@ -67,6 +76,7 @@ type OrderAction =
 const initialState: Order = {
   step: 1,
   userInfo: { name: "", email: "", phoneNumber: "" },
+  formErrors: { name: false, email: false, phoneNumber: false },
   billingPeriod: "Monthly",
   billingPlan: billingPlans[0],
   addOns: [],
@@ -76,6 +86,9 @@ const initialState: Order = {
 interface OrderContextProps {
   order: Order;
   dispatch: Dispatch<OrderAction>;
+  nextStep: () => void;
+  previousStep: () => void;
+  evaluateNextStep: () => void;
 }
 
 const OrderContext = createContext<OrderContextProps | undefined>(undefined);
@@ -86,9 +99,25 @@ const orderReducer = (state: Order, action: OrderAction): Order => {
     case "SET_STEP":
       return { ...state, step: action.payload };
     case "SET_USER_INFO":
-      return { ...state, userInfo: action.payload };
+      return {
+        ...state,
+        userInfo: {
+          ...state.userInfo,
+          [action.payload.property]: action.payload.value,
+        },
+      };
     case "REMOVE_USER_INFO":
       return { ...state, userInfo: { ...state.userInfo } };
+    case "SET_FORM_ERROR":
+      return {
+        ...state,
+        formErrors: { ...state.formErrors, [action.payload]: true },
+      };
+    case "REMOVE_FORM_ERROR":
+      return {
+        ...state,
+        formErrors: { ...state.formErrors, [action.payload]: false },
+      };
     case "SET_BILLING_PLAN":
       return { ...state, billingPlan: action.payload };
     case "SET_BILLING_PERIOD":
@@ -137,8 +166,38 @@ export const OrderProvider: React.FC<OrderProviderProps> = ({ children }) => {
 
   useEffect(() => console.log(order), [order]);
 
+  const nextStep = () =>
+    dispatch({ type: "SET_STEP", payload: order.step + 1 });
+  const previousStep = () =>
+    dispatch({ type: "SET_STEP", payload: order.step - 1 });
+  const evaluateNextStep = () => {
+    if (order.step >= steps.length) {
+      // showConfirmPage()
+      dispatch({ type: "RESET_STATE" });
+    } else if (order.step === 1) {
+      let errors: string[] = [];
+
+      for (const [key, value] of Object.entries(order.userInfo)) {
+        if (value.trim() === "") errors.push(key);
+      }
+
+      if (errors.length === 0) nextStep();
+
+      errors.forEach((error) =>
+        dispatch({
+          type: "SET_FORM_ERROR",
+          payload: error as UserFormField,
+        }),
+      );
+    } else {
+      nextStep();
+    }
+  };
+
   return (
-    <OrderContext.Provider value={{ order, dispatch }}>
+    <OrderContext.Provider
+      value={{ order, dispatch, nextStep, previousStep, evaluateNextStep }}
+    >
       {children}
     </OrderContext.Provider>
   );

@@ -5,7 +5,7 @@ import YourInfo from "@/components/step-content/YourInfo";
 import SelectYourPlan from "@/components/step-content/SelectYourPlan";
 import PickAddOns from "@/components/step-content/PickAddOns";
 import Summary from "@/components/step-content/Summary";
-import { useOrder } from "@/context/order-context";
+import { useOrder, UserFormField } from "@/context/order-context";
 
 interface Step {
   stepTitle: string;
@@ -67,7 +67,27 @@ export default function Sidebar() {
           <div
             key={index + 1}
             className="flex gap-3.5 text-white cursor-pointer"
-            onClick={() => dispatch({ type: "SET_STEP", payload: index + 1 })}
+            onClick={() => {
+              if (order.step === 1) {
+                let errors: string[] = [];
+
+                for (const [key, value] of Object.entries(order.userInfo)) {
+                  if (value.trim() === "") errors.push(key);
+                }
+
+                if (errors.length === 0)
+                  dispatch({ type: "SET_STEP", payload: index + 1 });
+
+                errors.forEach((error) =>
+                  dispatch({
+                    type: "SET_FORM_ERROR",
+                    payload: error as UserFormField,
+                  }),
+                );
+              } else {
+                dispatch({ type: "SET_STEP", payload: index + 1 });
+              }
+            }}
           >
             <div
               className={`flex items-center justify-center rounded-full w-8 h-8 border border-sky-200 text-xs font-semibold transition ${
