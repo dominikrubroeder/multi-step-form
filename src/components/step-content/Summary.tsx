@@ -1,27 +1,54 @@
+import { useOrder } from "@/context/order-context";
+
 export default function Summary() {
+  const { order, dispatch } = useOrder();
   return (
     <div>
       <div className="grid gap-6 bg-sky-50 p-6 rounded-lg">
         <header>
           <div className="flex justify-between gap-4 items-center">
-            <h3 className="font-bold text-blue-900">Arcade (Yearly)</h3>
-            <p className="font-bold">+$90/yr</p>
+            <h3 className="font-bold text-blue-900">
+              {order.billingPlan.title}
+            </h3>
+            <p className="font-bold">
+              +$
+              {order.billingPeriod === "Monthly"
+                ? `${order.billingPlan.monthlyPayment}/mo`
+                : `${order.billingPlan.yearlyPayment}/yr`}
+            </p>
           </div>
-          <button className="underline">Change</button>
+          <button
+            className="underline"
+            onClick={() => dispatch({ type: "SET_STEP", payload: 2 })}
+          >
+            Change
+          </button>
         </header>
-        <hr />
-        <div className="flex justify-between gap-4 items-center">
-          <h3 className="text-gray-400">Online service</h3>
-          <p>+$10/yr</p>
-        </div>
-        <div className="flex justify-between gap-4 items-center">
-          <h3 className="text-gray-400">Larger storage</h3>
-          <p>+$20/yr</p>
-        </div>
+        {order.addOns.length > 0 && (
+          <>
+            <hr />
+            {order.addOns.map((addOn, index) => (
+              <div
+                key={index}
+                className="flex justify-between gap-4 items-center"
+              >
+                <h3 className="text-gray-400">{addOn.title}</h3>
+                <p>
+                  +$
+                  {order.billingPeriod === "Monthly"
+                    ? `${addOn.monthlyPrice}/mo`
+                    : `${addOn.yearlyPrice}/yr`}
+                </p>
+              </div>
+            ))}
+          </>
+        )}
       </div>
       <footer className="flex justify-between gap-4 items-center p-6">
-        <h3 className="text-gray-400">Total (per year)</h3>
-        <p className="font-bold text-violet-700 text-xl">+$120/yr</p>
+        <h3 className="text-gray-400">
+          Total (per {order.billingPeriod === "Monthly" ? "month" : "year"})
+        </h3>
+        <p className="font-bold text-violet-700 text-xl">+${order.total}/yr</p>
       </footer>
     </div>
   );

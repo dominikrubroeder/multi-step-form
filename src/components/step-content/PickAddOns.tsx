@@ -53,7 +53,11 @@ export default function PickAddOns() {
           }`}
           onClick={() => dispatch({ type: "TOGGLE_ADDON", payload: addOn })}
         >
-          <input type="checkbox" checked={isSelected(addOn)} />
+          <input
+            type="checkbox"
+            checked={isSelected(addOn)}
+            onChange={() => {}}
+          />
           <div className="flex-1">
             <h3 className="font-semibold text-blue-900">{addOn.title}</h3>
             <p className="text-gray-400">{addOn.subline}</p>

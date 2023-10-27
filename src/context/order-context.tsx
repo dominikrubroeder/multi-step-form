@@ -51,6 +51,7 @@ interface Order {
   billingPeriod: BillingPeriod;
   billingPlan: BillingPlan;
   addOns: AddOn[];
+  total: number;
 }
 
 // Define the actions for manipulating the order state
@@ -80,6 +81,7 @@ const initialState: Order = {
   billingPeriod: "Monthly",
   billingPlan: billingPlans[0],
   addOns: [],
+  total: 0,
 };
 
 // Create the context for the order
@@ -164,7 +166,21 @@ interface OrderProviderProps {
 export const OrderProvider: React.FC<OrderProviderProps> = ({ children }) => {
   const [order, dispatch] = useReducer(orderReducer, initialState);
 
-  useEffect(() => console.log(order), [order]);
+  useEffect(() => {
+    order.total = 0;
+
+    if (order.billingPeriod === "Monthly") {
+      order.total += order.billingPlan.monthlyPayment;
+      order.addOns.map((addOn) => (order.total += addOn.monthlyPrice));
+    }
+
+    if (order.billingPeriod === "Yearly") {
+      order.total += order.billingPlan.yearlyPayment;
+      order.addOns.map((addOn) => (order.total += addOn.yearlyPrice));
+    }
+
+    console.log(order);
+  }, [order]);
 
   const nextStep = () =>
     dispatch({ type: "SET_STEP", payload: order.step + 1 });
