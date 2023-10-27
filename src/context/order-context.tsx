@@ -53,13 +53,15 @@ interface Order {
 type OrderAction =
   | { type: "SET_STEP"; payload: number }
   | { type: "SET_USER_INFO"; payload: UserInfo }
-  | { type: "SET_BILLING_PERIOD"; payload: BillingPeriod }
-  | { type: "SET_BILLING_PLAN"; payload: BillingPlan }
-  | { type: "TOGGLE_ADDON"; payload: AddOn }
-  | { type: "ADD_ADDON"; payload: AddOn }
   | { type: "REMOVE_USER_INFO"; payload: string }
+  | { type: "SET_BILLING_PLAN"; payload: BillingPlan }
+  | { type: "SET_BILLING_PERIOD"; payload: BillingPeriod }
+  | { type: "ADD_ADDON"; payload: AddOn }
+  | { type: "REMOVE_ADDON"; payload: string }
+  | { type: "TOGGLE_ADDON"; payload: AddOn }
   | { type: "TOGGLE_BILLING_PERIOD"; payload: null }
-  | { type: "REMOVE_ADDON"; payload: string };
+  | { type: "SET_STATE"; payload: Order }
+  | { type: "RESET_STATE" };
 
 // Define the initial state of the order
 const initialState: Order = {
@@ -85,12 +87,24 @@ const orderReducer = (state: Order, action: OrderAction): Order => {
       return { ...state, step: action.payload };
     case "SET_USER_INFO":
       return { ...state, userInfo: action.payload };
-    case "SET_BILLING_PERIOD":
-      return { ...state, billingPeriod: action.payload };
+    case "REMOVE_USER_INFO":
+      return { ...state, userInfo: { ...state.userInfo } };
     case "SET_BILLING_PLAN":
       return { ...state, billingPlan: action.payload };
+    case "SET_BILLING_PERIOD":
+      return { ...state, billingPeriod: action.payload };
+    case "TOGGLE_BILLING_PERIOD":
+      return {
+        ...state,
+        billingPeriod: state.billingPeriod === "Monthly" ? "Yearly" : "Monthly",
+      };
     case "ADD_ADDON":
       return { ...state, addOns: [...state.addOns, action.payload] };
+    case "REMOVE_ADDON":
+      return {
+        ...state,
+        addOns: state.addOns.filter((addOn) => addOn.title !== action.payload),
+      };
     case "TOGGLE_ADDON":
       const isSelected = state.addOns.find(
         (addOn) => addOn.title === action.payload.title,
@@ -104,18 +118,10 @@ const orderReducer = (state: Order, action: OrderAction): Order => {
               (addOn) => addOn.title !== action.payload.title,
             ),
       };
-    case "REMOVE_USER_INFO":
-      return { ...state, userInfo: { ...state.userInfo } };
-    case "TOGGLE_BILLING_PERIOD":
-      return {
-        ...state,
-        billingPeriod: state.billingPeriod === "Monthly" ? "Yearly" : "Monthly",
-      };
-    case "REMOVE_ADDON":
-      return {
-        ...state,
-        addOns: state.addOns.filter((addOn) => addOn.title !== action.payload),
-      };
+    case "SET_STATE":
+      return action.payload;
+    case "RESET_STATE":
+      return initialState;
     default:
       return state;
   }

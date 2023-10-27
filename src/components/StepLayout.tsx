@@ -33,7 +33,24 @@ export default function StepLayout() {
           </button>
           <button
             className="bg-blue-900 text-white px-5 py-2.5 rounded-md"
-            onClick={() => nextStep()}
+            onClick={() => {
+              if (order.step >= steps.length) {
+                // showConfirmPage()
+                dispatch({ type: "RESET_STATE" });
+              } else if (order.step === 1) {
+                dispatch({
+                  type: "SET_USER_INFO",
+                  payload: {
+                    name: "Dominik",
+                    email: "dominik.rubroeder@icloud.com",
+                    phoneNumber: "015120780269",
+                  },
+                });
+                nextStep();
+              } else {
+                nextStep();
+              }
+            }}
           >
             Next Step
           </button>
