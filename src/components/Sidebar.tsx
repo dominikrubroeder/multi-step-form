@@ -3,7 +3,7 @@ import { useOrder } from "@/context/order-context";
 import { steps } from "@/data";
 
 export default function Sidebar() {
-  const { order, dispatch, evaluateNextStep } = useOrder();
+  const { order, evaluateNextStep } = useOrder();
 
   return (
     <div className="relative grid items-start content-start gap-8">
