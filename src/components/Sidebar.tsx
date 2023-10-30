@@ -11,7 +11,9 @@ export default function Sidebar() {
         {steps.map((step, index) => (
           <div
             key={index + 1}
-            className="flex gap-3.5 text-white cursor-pointer"
+            className={`flex gap-3.5 text-white cursor-pointer ${
+              index + 1 === steps.length ? "opacity-0 invisible" : ""
+            }`}
             onClick={() => evaluateNextStep(index + 1)}
           >
             <div
