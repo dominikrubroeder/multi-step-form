@@ -1,33 +1,6 @@
 "use client";
 import { useOrder } from "@/context/order-context";
-
-export interface AddOn {
-  title: string;
-  subline: string;
-  monthlyPrice: number;
-  yearlyPrice: number;
-}
-
-const addOns: AddOn[] = [
-  {
-    title: "Online Service",
-    subline: "Access to multiplayer games",
-    monthlyPrice: 1,
-    yearlyPrice: 10,
-  },
-  {
-    title: "Larger Storage",
-    subline: "Extra 1TB of cloud save",
-    monthlyPrice: 2,
-    yearlyPrice: 20,
-  },
-  {
-    title: "Customizable profile",
-    subline: "Custom theme on your profile",
-    monthlyPrice: 2,
-    yearlyPrice: 20,
-  },
-];
+import { addOns } from "@/data";
 
 export default function PickAddOns() {
   const { dispatch, addOnIsSelected, getAddOnPrice } = useOrder();

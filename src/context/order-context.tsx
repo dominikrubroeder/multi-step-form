@@ -1,47 +1,6 @@
-import React, {
-  createContext,
-  Dispatch,
-  ReactNode,
-  useContext,
-  useEffect,
-  useReducer,
-} from "react";
-import { UserInfo } from "@/components/step-content/YourInfo";
-import { AddOn } from "@/components/step-content/PickAddOns";
-import {
-  BillingPeriod,
-  BillingPlan,
-} from "@/components/step-content/SelectYourPlan";
-import IconArcade from "@/components/svg/IconArcade";
-import IconAdvanced from "@/components/svg/IconAdvanced";
-import IconPro from "@/components/svg/IconPro";
-import { steps } from "@/components/Sidebar";
-
-export const billingPlans: BillingPlan[] = [
-  {
-    title: "Arcade",
-    icon: <IconArcade />,
-    monthlyPayment: 9,
-    yearlyPayment: 90,
-    yearlyHint: "2 month free",
-  },
-  {
-    title: "Advanced",
-    icon: <IconAdvanced />,
-    monthlyPayment: 12,
-    yearlyPayment: 120,
-    yearlyHint: "2 month free",
-  },
-  {
-    title: "Pro",
-    icon: <IconPro />,
-    monthlyPayment: 15,
-    yearlyPayment: 150,
-    yearlyHint: "2 month free",
-  },
-];
-
-export type UserFormField = "name" | "email" | "phoneNumber";
+import React, {createContext, Dispatch, ReactNode, useContext, useEffect, useReducer,} from "react";
+import {billingPlans, steps} from "@/data";
+import {AddOn, BillingPeriod, BillingPlan, UserFormField, UserInfo,} from "@/types";
 
 // Define the shape of your order
 interface Order {
@@ -90,7 +49,7 @@ interface OrderContextProps {
   dispatch: Dispatch<OrderAction>;
   nextStep: () => void;
   previousStep: () => void;
-  evaluateNextStep: () => void;
+  evaluateNextStep: (startFrom?: number) => void;
   setFieldValue: (fieldId: UserFormField, inputValue: string) => void;
   getBillingPlanPrice: (billingPlan: BillingPlan) => string;
   addOnIsSelected: (addOn: AddOn) => boolean;
@@ -186,13 +145,20 @@ export const OrderProvider: React.FC<OrderProviderProps> = ({ children }) => {
     console.log(order);
   }, [order]);
 
-  const nextStep = () =>
-    dispatch({ type: "SET_STEP", payload: order.step + 1 });
-  const previousStep = () =>
-    dispatch({ type: "SET_STEP", payload: order.step - 1 });
-  const evaluateNextStep = () => {
+  const nextStep = (startFrom?: number) =>
+    dispatch({
+      type: "SET_STEP",
+      payload: startFrom ? startFrom : order.step + 1,
+    });
+
+  const previousStep = (startFrom?: number) =>
+    dispatch({
+      type: "SET_STEP",
+      payload: startFrom ? startFrom : order.step - 1,
+    });
+
+  const evaluateNextStep = (startFrom?: number) => {
     if (order.step >= steps.length) {
-      // showConfirmPage()
       dispatch({ type: "RESET_STATE" });
     } else if (order.step === 1) {
       let errors: string[] = [];
@@ -201,7 +167,7 @@ export const OrderProvider: React.FC<OrderProviderProps> = ({ children }) => {
         if (value.trim() === "") errors.push(key);
       }
 
-      if (errors.length === 0) nextStep();
+      if (errors.length === 0) nextStep(startFrom);
 
       errors.forEach((error) =>
         dispatch({
@@ -210,7 +176,7 @@ export const OrderProvider: React.FC<OrderProviderProps> = ({ children }) => {
         }),
       );
     } else {
-      nextStep();
+      nextStep(startFrom);
     }
   };
 

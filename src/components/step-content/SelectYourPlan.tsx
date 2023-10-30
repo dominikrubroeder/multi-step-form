@@ -1,18 +1,7 @@
 "use client";
-import { JSX } from "react";
-import { billingPlans, useOrder } from "@/context/order-context";
+import { useOrder } from "@/context/order-context";
 import BillingPeriodSwitch from "@/components/BillingPeriodSwitch";
-
-export type BillingPlanTitle = "Arcade" | "Advanced" | "Pro";
-export type BillingPeriod = "Monthly" | "Yearly";
-
-export interface BillingPlan {
-  title: BillingPlanTitle;
-  icon: JSX.Element;
-  monthlyPayment: number;
-  yearlyPayment: number;
-  yearlyHint: string;
-}
+import { billingPlans } from "@/data";
 
 export default function SelectYourPlan() {
   const { order, dispatch, getBillingPlanPrice } = useOrder();

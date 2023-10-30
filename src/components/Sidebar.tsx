@@ -1,64 +1,9 @@
-import { ReactNode } from "react";
 import SidebarBackground from "@/components/svg/SidebarBackground";
-import StepContent from "@/components/StepContent";
-import YourInfo from "@/components/step-content/YourInfo";
-import SelectYourPlan from "@/components/step-content/SelectYourPlan";
-import PickAddOns from "@/components/step-content/PickAddOns";
-import Summary from "@/components/step-content/Summary";
-import { useOrder, UserFormField } from "@/context/order-context";
-
-interface Step {
-  stepTitle: string;
-  headline: string;
-  subline: string;
-  content: ReactNode;
-}
-
-export const steps: Step[] = [
-  {
-    stepTitle: "Your info",
-    headline: "Personal info",
-    subline: "Please provide your name, email address, and phone number.",
-    content: (
-      <StepContent>
-        <YourInfo />
-      </StepContent>
-    ),
-  },
-  {
-    stepTitle: "Select plan",
-    headline: "Select your plan",
-    subline: "You have the option of monthly or yearly billing.",
-    content: (
-      <StepContent>
-        <SelectYourPlan />
-      </StepContent>
-    ),
-  },
-  {
-    stepTitle: "Add-ons",
-    headline: "Pick add-ons",
-    subline: "Add-ons help enhance your gaming experience.",
-    content: (
-      <StepContent>
-        <PickAddOns />
-      </StepContent>
-    ),
-  },
-  {
-    stepTitle: "Summary",
-    headline: "Finishing up",
-    subline: "Double-check everything looks OK before confirming.",
-    content: (
-      <StepContent>
-        <Summary />
-      </StepContent>
-    ),
-  },
-];
+import { useOrder } from "@/context/order-context";
+import { steps } from "@/data";
 
 export default function Sidebar() {
-  const { order, dispatch } = useOrder();
+  const { order, dispatch, evaluateNextStep } = useOrder();
 
   return (
     <div className="relative grid items-start content-start gap-8">
@@ -67,27 +12,7 @@ export default function Sidebar() {
           <div
             key={index + 1}
             className="flex gap-3.5 text-white cursor-pointer"
-            onClick={() => {
-              if (order.step === 1) {
-                let errors: string[] = [];
-
-                for (const [key, value] of Object.entries(order.userInfo)) {
-                  if (value.trim() === "") errors.push(key);
-                }
-
-                if (errors.length === 0)
-                  dispatch({ type: "SET_STEP", payload: index + 1 });
-
-                errors.forEach((error) =>
-                  dispatch({
-                    type: "SET_FORM_ERROR",
-                    payload: error as UserFormField,
-                  }),
-                );
-              } else {
-                dispatch({ type: "SET_STEP", payload: index + 1 });
-              }
-            }}
+            onClick={() => evaluateNextStep(index + 1)}
           >
             <div
               className={`flex items-center justify-center rounded-full w-8 h-8 border border-sky-200 text-xs font-semibold transition ${

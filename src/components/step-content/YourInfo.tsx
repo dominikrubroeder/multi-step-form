@@ -1,49 +1,12 @@
-import { useOrder, UserFormField } from "@/context/order-context";
-
-export interface UserInfo {
-  name: string;
-  email: string;
-  phoneNumber: string;
-}
-
-interface Field {
-  id: UserFormField;
-  title: string;
-  type: "text" | "email" | "number";
-  placeholder: string;
-  required: boolean;
-}
-
-const fields: Field[] = [
-  {
-    id: "name",
-    title: "Name",
-    type: "text",
-    placeholder: "e.g. Stephen King",
-    required: true,
-  },
-  {
-    id: "email",
-    title: "Email Address",
-    type: "email",
-    placeholder: "e.g. stephenking@lorem.com",
-    required: true,
-  },
-  {
-    id: "phoneNumber",
-    title: "Phone Number",
-    type: "number",
-    placeholder: "e.g. Stephen King",
-    required: true,
-  },
-];
+import { useOrder } from "@/context/order-context";
+import { userInfoFields } from "@/data";
 
 export default function YourInfo() {
   const { order, setFieldValue } = useOrder();
 
   return (
     <form className="grid gap-4">
-      {fields.map((field) => (
+      {userInfoFields.map((field) => (
         <div key={field.id} className="grid gap-1">
           <div className="flex justify-between items-center">
             <label htmlFor={field.id} className="text-xs text-blue-900">
