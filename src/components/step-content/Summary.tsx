@@ -11,7 +11,7 @@ export default function Summary() {
               {order.billingPlan.title}
             </h3>
             <p className="font-bold">
-              +${getBillingPlanPrice(order.billingPlan)}
+              ${getBillingPlanPrice(order.billingPlan)}
             </p>
           </div>
           <button
