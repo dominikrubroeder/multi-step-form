@@ -119,9 +119,9 @@ export const steps: Step[] = [
     ),
   },
   {
-    stepTitle: "Confirm",
-    headline: "Your order is confirmed",
-    subline: "Thanks!",
+    stepTitle: "",
+    headline: "",
+    subline: "",
     content: (
       <StepContent>
         <Confirm />

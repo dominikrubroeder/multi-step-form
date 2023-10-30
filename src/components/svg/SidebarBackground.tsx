@@ -5,7 +5,7 @@ export default function SidebarBackground() {
         xmlns="http://www.w3.org/2000/svg"
         xmlnsXlink="http://www.w3.org/1999/xlink"
         viewBox="0 0 375 172"
-        className="w-full md:hidden"
+        className="w-full lg:hidden"
       >
         <defs>
           <path id="a" d="M0 0h375v172H0z" />
@@ -51,7 +51,7 @@ export default function SidebarBackground() {
         height="568"
         fill="none"
         viewBox="0 0 274 568"
-        className="hidden md:block"
+        className="hidden lg:block"
       >
         <rect width="274" height="568" fill="#483EFF" rx="10" />
         <mask

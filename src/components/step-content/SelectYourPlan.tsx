@@ -8,11 +8,11 @@ export default function SelectYourPlan() {
 
   return (
     <div className="grid gap-4">
-      <div className="grid gap-4 md:grid-cols-3">
+      <div className="grid gap-4 lg:grid-cols-3">
         {billingPlans.map((billingPlan, index) => (
           <div
             key={index}
-            className={`flex flex-col justify-between gap-1 border rounded-lg p-4 min-h-[10rem] transition cursor-pointer ${
+            className={`flex flex-col justify-between gap-1 border rounded-lg p-4 transition cursor-pointer lg:min-h-[10rem] ${
               billingPlan.title === order.billingPlan.title
                 ? "bg-sky-50 border-blue-900"
                 : "bg-transparent border-gray-200"

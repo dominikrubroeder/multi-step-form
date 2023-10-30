@@ -8,7 +8,7 @@ export default function Summary() {
         <header>
           <div className="flex justify-between gap-4 items-center">
             <h3 className="font-bold text-blue-900">
-              {order.billingPlan.title}
+              {order.billingPlan.title} ({order.billingPeriod})
             </h3>
             <p className="font-bold">
               ${getBillingPlanPrice(order.billingPlan)}

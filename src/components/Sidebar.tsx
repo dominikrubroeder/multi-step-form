@@ -7,12 +7,12 @@ export default function Sidebar() {
 
   return (
     <div className="relative grid items-start content-start gap-8">
-      <div className="absolute left-1/2 -translate-x-1/2 flex gap-8 p-8 md:left-auto md:-translate-x-0 md:grid md:items-start md:content-start">
+      <div className="absolute left-1/2 -translate-x-1/2 flex gap-4 p-8 lg:gap-8 lg:left-auto lg:-translate-x-0 lg:grid lg:items-start lg:content-start">
         {steps.map((step, index) => (
           <div
             key={index + 1}
             className={`flex gap-3.5 text-white cursor-pointer ${
-              index + 1 === steps.length ? "opacity-0 invisible" : ""
+              index + 1 === steps.length ? "opacity-0 invisible hidden" : ""
             }`}
             onClick={() => evaluateNextStep(index + 1)}
           >
@@ -25,7 +25,7 @@ export default function Sidebar() {
             >
               {index + 1}
             </div>
-            <div className="hidden md:grid">
+            <div className="hidden lg:grid">
               <small className="uppercase leading-normal text-xs">
                 Step {index + 1}
               </small>
@@ -37,7 +37,7 @@ export default function Sidebar() {
         ))}
       </div>
 
-      <div className="h-44 overflow-hidden md:h-auto md:overflow-visible">
+      <div className="h-44 overflow-hidden lg:h-auto lg:overflow-visible">
         <SidebarBackground />
       </div>
     </div>
