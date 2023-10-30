@@ -39,7 +39,7 @@ const fields: Field[] = [
 ];
 
 export default function YourInfo() {
-  const { order, dispatch } = useOrder();
+  const { order, setFieldValue } = useOrder();
 
   return (
     <form className="grid gap-4">
@@ -62,13 +62,7 @@ export default function YourInfo() {
             className={`px-3 py-1.5 rounded-md border transition ${
               order.formErrors[field.id] ? "border-red-400" : ""
             }`}
-            onChange={(event) => {
-              dispatch({ type: "REMOVE_FORM_ERROR", payload: field.id });
-              dispatch({
-                type: "SET_USER_INFO",
-                payload: { property: field.id, value: event.target.value },
-              });
-            }}
+            onChange={(event) => setFieldValue(field.id, event.target.value)}
             value={order.userInfo[field.id]}
             required={field.required}
           />

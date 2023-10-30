@@ -1,7 +1,7 @@
 import { useOrder } from "@/context/order-context";
 
 export default function Summary() {
-  const { order, dispatch } = useOrder();
+  const { order, dispatch, getBillingPlanPrice, getAddOnPrice } = useOrder();
   return (
     <div>
       <div className="grid gap-6 bg-sky-50 p-6 rounded-lg">
@@ -11,10 +11,7 @@ export default function Summary() {
               {order.billingPlan.title}
             </h3>
             <p className="font-bold">
-              +$
-              {order.billingPeriod === "Monthly"
-                ? `${order.billingPlan.monthlyPayment}/mo`
-                : `${order.billingPlan.yearlyPayment}/yr`}
+              +${getBillingPlanPrice(order.billingPlan)}
             </p>
           </div>
           <button
@@ -33,12 +30,7 @@ export default function Summary() {
                 className="flex justify-between gap-4 items-center"
               >
                 <h3 className="text-gray-400">{addOn.title}</h3>
-                <p>
-                  +$
-                  {order.billingPeriod === "Monthly"
-                    ? `${addOn.monthlyPrice}/mo`
-                    : `${addOn.yearlyPrice}/yr`}
-                </p>
+                <p>+${getAddOnPrice(addOn)}</p>
               </div>
             ))}
           </>

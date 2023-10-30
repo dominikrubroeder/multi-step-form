@@ -1,6 +1,7 @@
 "use client";
 import { JSX } from "react";
 import { billingPlans, useOrder } from "@/context/order-context";
+import BillingPeriodSwitch from "@/components/BillingPeriodSwitch";
 
 export type BillingPlanTitle = "Arcade" | "Advanced" | "Pro";
 export type BillingPeriod = "Monthly" | "Yearly";
@@ -14,7 +15,7 @@ export interface BillingPlan {
 }
 
 export default function SelectYourPlan() {
-  const { order, dispatch } = useOrder();
+  const { order, dispatch, getBillingPlanPrice } = useOrder();
 
   return (
     <div className="grid gap-4">
@@ -34,12 +35,7 @@ export default function SelectYourPlan() {
             {billingPlan.icon}
             <div>
               <h3 className="font-bold text-blue-900">{billingPlan.title}</h3>
-              <p>
-                $
-                {order.billingPeriod === "Monthly"
-                  ? `${billingPlan.monthlyPayment}/mo`
-                  : `${billingPlan.yearlyPayment}/yr`}
-              </p>
+              <p>${getBillingPlanPrice(billingPlan)}</p>
               {order.billingPeriod === "Yearly" && (
                 <p className="text-xs text-blue-900">
                   {billingPlan.yearlyHint}
@@ -50,36 +46,7 @@ export default function SelectYourPlan() {
         ))}
       </div>
 
-      <div className="flex gap-2 bg-sky-50 justify-center items-center p-4 rounded-lg">
-        <div
-          className="cursor-pointer"
-          onClick={() =>
-            dispatch({ type: "SET_BILLING_PERIOD", payload: "Monthly" })
-          }
-        >
-          Monthly
-        </div>
-        <div
-          className="relative w-10 h-5 rounded-full bg-sky-900 cursor-pointer"
-          onClick={() =>
-            dispatch({ type: "TOGGLE_BILLING_PERIOD", payload: null })
-          }
-        >
-          <span
-            className={`absolute top-1/2 -translate-y-1/2 w-3 h-3 bg-white block rounded-full transition-all ${
-              order.billingPeriod === "Monthly" ? "left-1" : "right-1"
-            }`}
-          ></span>
-        </div>
-        <div
-          className="cursor-pointer"
-          onClick={() =>
-            dispatch({ type: "SET_BILLING_PERIOD", payload: "Yearly" })
-          }
-        >
-          Yearly
-        </div>
-      </div>
+      <BillingPeriodSwitch />
     </div>
   );
 }

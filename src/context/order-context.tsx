@@ -91,6 +91,10 @@ interface OrderContextProps {
   nextStep: () => void;
   previousStep: () => void;
   evaluateNextStep: () => void;
+  setFieldValue: (fieldId: UserFormField, inputValue: string) => void;
+  getBillingPlanPrice: (billingPlan: BillingPlan) => string;
+  addOnIsSelected: (addOn: AddOn) => boolean;
+  getAddOnPrice: (addOn: AddOn) => string;
 }
 
 const OrderContext = createContext<OrderContextProps | undefined>(undefined);
@@ -210,9 +214,44 @@ export const OrderProvider: React.FC<OrderProviderProps> = ({ children }) => {
     }
   };
 
+  const setFieldValue = (fieldId: UserFormField, inputValue: string) => {
+    dispatch({ type: "REMOVE_FORM_ERROR", payload: fieldId });
+    dispatch({
+      type: "SET_USER_INFO",
+      payload: { property: fieldId, value: inputValue },
+    });
+  };
+
+  const getBillingPlanPrice = (billingPlan: BillingPlan) => {
+    return order.billingPeriod === "Monthly"
+      ? `${billingPlan.monthlyPayment}/mo`
+      : `${billingPlan.yearlyPayment}/yr`;
+  };
+
+  const addOnIsSelected = (addOn: AddOn) =>
+    !!order.addOns.find(
+      (selectedAddOns) => selectedAddOns.title === addOn.title,
+    );
+
+  const getAddOnPrice = (addOn: AddOn) => {
+    return order.billingPeriod === "Monthly"
+      ? `${addOn.monthlyPrice}/mo`
+      : `${addOn.yearlyPrice}/yr`;
+  };
+
   return (
     <OrderContext.Provider
-      value={{ order, dispatch, nextStep, previousStep, evaluateNextStep }}
+      value={{
+        order,
+        dispatch,
+        nextStep,
+        previousStep,
+        evaluateNextStep,
+        setFieldValue,
+        getBillingPlanPrice,
+        addOnIsSelected,
+        getAddOnPrice,
+      }}
     >
       {children}
     </OrderContext.Provider>

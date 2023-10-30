@@ -30,16 +30,7 @@ const addOns: AddOn[] = [
 ];
 
 export default function PickAddOns() {
-  const { order, dispatch } = useOrder();
-
-  const isSelected = (addOn: AddOn) =>
-    !!order.addOns.find(
-      (selectedAddOns) => selectedAddOns.title === addOn.title,
-    );
-  const price = (addOn: AddOn) =>
-    order.billingPeriod === "Monthly"
-      ? `${addOn.monthlyPrice}/mo`
-      : `${addOn.yearlyPrice}/yr`;
+  const { dispatch, addOnIsSelected, getAddOnPrice } = useOrder();
 
   return (
     <div className="grid gap-4">
@@ -47,7 +38,7 @@ export default function PickAddOns() {
         <div
           key={index}
           className={`flex items-center justify-center gap-4 border rounded-lg p-4 cursor-pointer transition ${
-            isSelected(addOn)
+            addOnIsSelected(addOn)
               ? "border-blue-900 bg-sky-50"
               : "border-gray-200 bg-transparent"
           }`}
@@ -55,14 +46,14 @@ export default function PickAddOns() {
         >
           <input
             type="checkbox"
-            checked={isSelected(addOn)}
+            checked={addOnIsSelected(addOn)}
             onChange={() => {}}
           />
           <div className="flex-1">
             <h3 className="font-semibold text-blue-900">{addOn.title}</h3>
             <p className="text-gray-400">{addOn.subline}</p>
           </div>
-          <div className="text-sm text-blue-900">+${price(addOn)}</div>
+          <div className="text-sm text-blue-900">+${getAddOnPrice(addOn)}</div>
         </div>
       ))}
     </div>
