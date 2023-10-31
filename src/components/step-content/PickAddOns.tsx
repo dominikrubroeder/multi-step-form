@@ -17,11 +17,26 @@ export default function PickAddOns() {
           }`}
           onClick={() => dispatch({ type: "TOGGLE_ADDON", payload: addOn })}
         >
-          <input
-            type="checkbox"
-            checked={addOnIsSelected(addOn)}
-            onChange={() => {}}
-          />
+          <div
+            className={`w-5 h-5 flex items-center justify-center rounded border transition ${
+              addOnIsSelected(addOn) ? "bg-app-purplish-blue" : "bg-transparent"
+            }`}
+          >
+            <svg
+              width="11"
+              height="8"
+              viewBox="0 0 11 8"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M1.375 3.9375L4 6.5625L9.625 0.9375"
+                stroke="white"
+                strokeWidth="2"
+                strokeLinecap="round"
+              />
+            </svg>
+          </div>
           <div className="flex-1">
             <h3 className="text-app-marine-blue font-semibold">
               {addOn.title}

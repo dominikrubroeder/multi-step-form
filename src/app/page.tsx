@@ -13,6 +13,24 @@ export default function Home() {
           <StepLayout />
         </OrderProvider>
       </div>
+      <footer className="text-app-cool-gray my-8 text-center text-xs dark:text-white">
+        Frontend challenge by&nbsp;
+        <a
+          href="https://www.frontendmentor.io/challenges/multistep-form-YVAnSdqQBJ"
+          target="_blank"
+          rel="noreferrer"
+        >
+          frontendmentor.io
+        </a>
+        , developed by&nbsp;
+        <a
+          href="https://github.com/dominikrubroeder"
+          target="_blank"
+          rel="noreferrer"
+        >
+          Dominik Rubröder
+        </a>
+      </footer>
     </main>
   );
 }
