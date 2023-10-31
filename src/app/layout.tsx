@@ -8,6 +8,8 @@ export const metadata: Metadata = {
   title: "Multi step form",
   description:
     "Frontend challenge solution by Dominik Rubröder, Challenge by frontendmentor.io",
+  viewport: "width=device-width, initial-scale=1.0",
+  other: { "http-equiv": "content-type", content: "text/html" },
 };
 
 export default function RootLayout({
