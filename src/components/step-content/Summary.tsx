@@ -4,10 +4,10 @@ export default function Summary() {
   const { order, dispatch, getBillingPlanPrice, getAddOnPrice } = useOrder();
   return (
     <div>
-      <div className="grid gap-5 bg-sky-50 p-6 rounded-lg">
+      <div className="grid gap-5 bg-app-alabaster p-6 rounded-lg">
         <header>
           <div className="flex justify-between gap-4 items-center">
-            <h3 className="font-bold text-blue-900">
+            <h3 className="font-bold text-app-marine-blue">
               {order.billingPlan.title} ({order.billingPeriod})
             </h3>
             <p className="font-bold">
@@ -26,20 +26,20 @@ export default function Summary() {
             <hr />
             <div className="grid gap-4">
               {order.addOns.map((addOn, index) => (
-                  <div
-                      key={index}
-                      className="flex justify-between gap-4 items-center"
-                  >
-                    <h3 className="text-gray-400">{addOn.title}</h3>
-                    <p>+${getAddOnPrice(addOn)}</p>
-                  </div>
+                <div
+                  key={index}
+                  className="flex justify-between gap-4 items-center"
+                >
+                  <h3 className="text-app-cool-gray">{addOn.title}</h3>
+                  <p>+${getAddOnPrice(addOn)}</p>
+                </div>
               ))}
             </div>
           </>
         )}
       </div>
       <footer className="flex justify-between gap-4 items-center p-6">
-        <h3 className="text-gray-400">
+        <h3 className="text-app-cool-gray">
           Total (per {order.billingPeriod === "Monthly" ? "month" : "year"})
         </h3>
         <p className="font-bold text-violet-700 text-xl">+${order.total}/yr</p>

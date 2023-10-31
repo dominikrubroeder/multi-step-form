@@ -20,7 +20,7 @@ export default function Sidebar() {
             <div
               className={`flex items-center justify-center rounded-full w-8 h-8 border border-sky-200 text-xs font-semibold transition ${
                 index + 1 === order.step
-                  ? "text-blue-900 bg-sky-200"
+                  ? "text-app-marine-blue bg-sky-200"
                   : "text-white bg-transparent"
               }`}
             >

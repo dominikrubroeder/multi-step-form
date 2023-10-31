@@ -11,10 +11,10 @@ export default function StepLayout() {
     <div className="min-h-screen relative flex flex-col justify-between px-4 md:px-0 lg:min-h-0 lg:pt-8 lg:pb-4 lg:px-16">
       <div className="grid gap-8 bg-white rounded-2xl mx-auto max-w-md w-full px-4 py-6 -translate-y-[5rem] md:max-w-xl lg:max-w-none lg:-translate-y-0">
         <header className="grid gap-2">
-          <h2 className="text-8 font-bold text-blue-900">
+          <h2 className="text-8 font-bold text-app-marine-blue">
             {steps[order.step - 1].headline}
           </h2>
-          <p className="text-gray-400">{steps[order.step - 1].subline}</p>
+          <p className="text-app-cool-gray">{steps[order.step - 1].subline}</p>
         </header>
 
         {steps[order.step - 1].content}
@@ -24,7 +24,7 @@ export default function StepLayout() {
         <footer className="sticky bottom-4 px-4 py-2 bg-white outline outline-[1rem] outline-white lg:outline-none">
           <div className="flex items-center justify-between max-w-md w-full mx-auto md:max-w-xl lg:max-w-none">
             <button
-              className={`text-gray-400 transition ${
+              className={`text-app-cool-gray transition hover:text-app-marine-blue ${
                 order.step === 1 ? "opacity-0 invisible" : "opacity-1 visible"
               }`}
               onClick={() => previousStep()}
@@ -32,7 +32,11 @@ export default function StepLayout() {
               Go back
             </button>
             <button
-              className="bg-blue-900 text-white px-5 py-2.5 rounded-md"
+              className={`text-white px-5 py-2.5 rounded-md transition ${
+                isSummaryPage
+                  ? "bg-app-purplish-blue hover:bg-app-purplish-blue"
+                  : "bg-app-marine-blue hover:bg-app-marine-blue-light"
+              }`}
               onClick={() => evaluateNextStep()}
             >
               {isSummaryPage ? "Confirm" : "Next Step"}

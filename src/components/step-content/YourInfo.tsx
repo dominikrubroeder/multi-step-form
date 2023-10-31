@@ -9,7 +9,7 @@ export default function YourInfo() {
       {userInfoFields.map((field) => (
         <div key={field.id} className="grid gap-1">
           <div className="flex justify-between items-center">
-            <label htmlFor={field.id} className="text-xs text-blue-900">
+            <label htmlFor={field.id} className="text-xs text-app-marine-blue">
               {field.title}
             </label>
             {order.formErrors[field.id] && (
