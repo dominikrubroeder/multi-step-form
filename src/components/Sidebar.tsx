@@ -1,6 +1,7 @@
-import SidebarBackground from "@/components/svg/SidebarBackground";
+import SidebarBackgroundDesktop from "@/components/svg/SidebarBackgroundDesktop";
 import { useOrder } from "@/context/order-context";
 import { steps } from "@/data";
+import SidebarBackgroundMobile from "@/components/svg/SidebarBackgroundMobile";
 
 export default function Sidebar() {
   const { order, evaluateNextStep } = useOrder();
@@ -37,8 +38,12 @@ export default function Sidebar() {
         ))}
       </div>
 
-      <div className="h-44 overflow-hidden lg:h-auto lg:overflow-visible">
-        <SidebarBackground />
+      <div className="hidden lg:block">
+        <SidebarBackgroundDesktop />
+      </div>
+
+      <div className="h-44 w-full overflow-hidden lg:hidden">
+        <SidebarBackgroundMobile />
       </div>
     </div>
   );
