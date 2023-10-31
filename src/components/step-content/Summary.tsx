@@ -4,7 +4,7 @@ export default function Summary() {
   const { order, dispatch, getBillingPlanPrice, getAddOnPrice } = useOrder();
   return (
     <div>
-      <div className="grid gap-6 bg-sky-50 p-6 rounded-lg">
+      <div className="grid gap-5 bg-sky-50 p-6 rounded-lg">
         <header>
           <div className="flex justify-between gap-4 items-center">
             <h3 className="font-bold text-blue-900">
@@ -24,15 +24,17 @@ export default function Summary() {
         {order.addOns.length > 0 && (
           <>
             <hr />
-            {order.addOns.map((addOn, index) => (
-              <div
-                key={index}
-                className="flex justify-between gap-4 items-center"
-              >
-                <h3 className="text-gray-400">{addOn.title}</h3>
-                <p>+${getAddOnPrice(addOn)}</p>
-              </div>
-            ))}
+            <div className="grid gap-4">
+              {order.addOns.map((addOn, index) => (
+                  <div
+                      key={index}
+                      className="flex justify-between gap-4 items-center"
+                  >
+                    <h3 className="text-gray-400">{addOn.title}</h3>
+                    <p>+${getAddOnPrice(addOn)}</p>
+                  </div>
+              ))}
+            </div>
           </>
         )}
       </div>
