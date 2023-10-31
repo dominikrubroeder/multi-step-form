@@ -23,9 +23,9 @@ export default function SelectYourPlan() {
           >
             {billingPlan.icon}
             <div>
-              <h3 className="font-bold text-app-marine-blue mb-0.5">
+              <h2 className="font-bold text-app-marine-blue mb-0.5">
                 {billingPlan.title}
-              </h3>
+              </h2>
               <p className="text-app-cool-gray text-sm">
                 ${getBillingPlanPrice(billingPlan)}
               </p>

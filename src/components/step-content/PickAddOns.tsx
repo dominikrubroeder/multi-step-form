@@ -38,9 +38,9 @@ export default function PickAddOns() {
             </svg>
           </div>
           <div className="flex-1">
-            <h3 className="text-app-marine-blue font-semibold">
+            <h2 className="text-app-marine-blue font-semibold">
               {addOn.title}
-            </h3>
+            </h2>
             <p className="text-app-cool-gray">{addOn.subline}</p>
           </div>
           <div className="text-sm text-app-purplish-blue">

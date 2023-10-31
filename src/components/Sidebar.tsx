@@ -30,9 +30,9 @@ export default function Sidebar() {
                 <small className="uppercase leading-normal text-xs">
                   Step {index + 1}
                 </small>
-                <h3 className="uppercase font-bold text-xs tracking-widest leading-normal">
+                <h2 className="uppercase font-bold text-xs tracking-widest leading-normal">
                   {step.stepTitle}
-                </h3>
+                </h2>
               </div>
             </div>
           );

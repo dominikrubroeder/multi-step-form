@@ -7,9 +7,9 @@ export default function Summary() {
       <div className="grid gap-5 bg-app-alabaster p-6 rounded-lg">
         <header>
           <div className="flex justify-between gap-4 items-center">
-            <h3 className="font-bold text-app-marine-blue">
+            <h2 className="font-bold text-app-marine-blue">
               {order.billingPlan.title} ({order.billingPeriod})
-            </h3>
+            </h2>
             <p className="font-bold">
               ${getBillingPlanPrice(order.billingPlan)}
             </p>
@@ -30,7 +30,7 @@ export default function Summary() {
                   key={index}
                   className="flex justify-between gap-4 items-center"
                 >
-                  <h3 className="text-app-cool-gray">{addOn.title}</h3>
+                  <h2 className="text-app-cool-gray">{addOn.title}</h2>
                   <p>+${getAddOnPrice(addOn)}</p>
                 </div>
               ))}
@@ -39,9 +39,9 @@ export default function Summary() {
         )}
       </div>
       <footer className="flex justify-between gap-4 items-center p-6">
-        <h3 className="text-app-cool-gray">
+        <h2 className="text-app-cool-gray">
           Total (per {order.billingPeriod === "Monthly" ? "month" : "year"})
-        </h3>
+        </h2>
         <p className="font-bold text-violet-700 text-xl">+${order.total}/yr</p>
       </footer>
     </div>
