@@ -103,7 +103,6 @@ const orderReducer = (state: Order, action: OrderAction): Order => {
       const isSelected = state.addOns.find(
         (addOn) => addOn.title === action.payload.title,
       );
-
       return {
         ...state,
         addOns: !isSelected
@@ -141,8 +140,6 @@ export const OrderProvider: React.FC<OrderProviderProps> = ({ children }) => {
       order.total += order.billingPlan.yearlyPayment;
       order.addOns.map((addOn) => (order.total += addOn.yearlyPrice));
     }
-
-    console.log(order);
   }, [order]);
 
   const nextStep = (startFrom?: number) =>

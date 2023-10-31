@@ -11,7 +11,7 @@ export default function StepLayout() {
     <div className="min-h-screen relative flex flex-col justify-between px-4 md:px-0 lg:min-h-0 lg:pt-8 lg:pb-4 lg:px-16">
       <div className="grid gap-8 bg-white rounded-2xl mx-auto max-w-md w-full px-4 py-6 -translate-y-[5rem] md:max-w-xl lg:max-w-none lg:-translate-y-0">
         <header className="grid gap-2">
-          <h2 className="text-3xl font-bold text-blue-900">
+          <h2 className="text-8 font-bold text-blue-900">
             {steps[order.step - 1].headline}
           </h2>
           <p className="text-gray-400">{steps[order.step - 1].subline}</p>
