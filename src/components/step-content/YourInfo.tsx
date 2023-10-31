@@ -19,6 +19,7 @@ export default function YourInfo() {
             )}
           </div>
           <input
+            id={field.id}
             name={field.id}
             type={field.type}
             placeholder={field.placeholder}
