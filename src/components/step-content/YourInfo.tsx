@@ -8,7 +8,7 @@ export default function YourInfo() {
     <form className="grid gap-4">
       {userInfoFields.map((field) => (
         <div key={field.id} className="grid gap-1">
-          <div className="flex justify-between items-center">
+          <div className="flex items-center justify-between">
             <label htmlFor={field.id} className="text-xs text-blue-900">
               {field.title}
             </label>
@@ -22,7 +22,7 @@ export default function YourInfo() {
             name={field.id}
             type={field.type}
             placeholder={field.placeholder}
-            className={`px-3 py-1.5 rounded-md border transition ${
+            className={`rounded-md border px-3 py-1.5 transition ${
               order.formErrors[field.id] ? "border-red-400" : ""
             }`}
             onChange={(event) => setFieldValue(field.id, event.target.value)}

@@ -12,10 +12,10 @@ export default function SelectYourPlan() {
         {billingPlans.map((billingPlan, index) => (
           <div
             key={index}
-            className={`flex flex-col justify-between gap-1 border rounded-lg p-4 transition cursor-pointer lg:min-h-[10rem] ${
+            className={`flex cursor-pointer flex-col justify-between gap-1 rounded-lg border p-4 transition lg:min-h-[10rem] ${
               billingPlan.title === order.billingPlan.title
-                ? "bg-sky-50 border-blue-900"
-                : "bg-transparent border-gray-200"
+                ? "border-blue-900 bg-sky-50"
+                : "border-gray-200 bg-transparent"
             }`}
             onClick={() =>
               dispatch({ type: "SET_BILLING_PLAN", payload: billingPlan })

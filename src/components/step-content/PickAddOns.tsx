@@ -10,7 +10,7 @@ export default function PickAddOns() {
       {addOns.map((addOn, index) => (
         <div
           key={index}
-          className={`flex items-center justify-center gap-4 border rounded-lg p-4 cursor-pointer transition ${
+          className={`flex cursor-pointer items-center justify-center gap-4 rounded-lg border p-4 transition ${
             addOnIsSelected(addOn)
               ? "border-blue-900 bg-sky-50"
               : "border-gray-200 bg-transparent"
