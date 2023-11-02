@@ -9,7 +9,9 @@ export default function Confirm() {
         <IconThankYou />
       </div>
       <div className="grid gap-4">
-        <h3 className="mx-auto text-3xl font-bold text-blue-900">Thank you!</h3>
+        <h2 className="mx-auto text-3xl font-bold text-app-marine-blue">
+          Thank you!
+        </h2>
         <p className="text-center">
           Thanks for confirming your subscription! We hope you have fun using
           our platform. If you ever need support, please feel free to email us

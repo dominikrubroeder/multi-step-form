@@ -8,8 +8,8 @@ export default function YourInfo() {
     <form className="grid gap-4">
       {userInfoFields.map((field) => (
         <div key={field.id} className="grid gap-1">
-          <div className="flex items-center justify-between">
-            <label htmlFor={field.id} className="text-xs text-blue-900">
+          <div className="flex justify-between items-center">
+            <label htmlFor={field.id} className="text-xs text-app-marine-blue">
               {field.title}
             </label>
             {order.formErrors[field.id] && (
@@ -19,10 +19,11 @@ export default function YourInfo() {
             )}
           </div>
           <input
+            id={field.id}
             name={field.id}
             type={field.type}
             placeholder={field.placeholder}
-            className={`rounded-md border px-3 py-1.5 transition ${
+            className={`px-3 py-1.5 rounded-md border transition ${
               order.formErrors[field.id] ? "border-red-400" : ""
             }`}
             onChange={(event) => setFieldValue(field.id, event.target.value)}

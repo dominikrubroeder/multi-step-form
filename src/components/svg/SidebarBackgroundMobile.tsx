@@ -2,7 +2,7 @@ export default function SidebarBackgroundMobile() {
   return (
     <svg viewBox="0 0 375 172" fill="none" xmlns="http://www.w3.org/2000/svg">
       <g clipPath="url(#clip0_1_743)">
-        <path d="M0 0H375V172H0V0Z" fill="#483EFF" />
+        <path d="M0 0h275V172H0V0Z" fill="#483EFF" />
         <path
           fillRule="evenodd"
           clipRule="evenodd"
