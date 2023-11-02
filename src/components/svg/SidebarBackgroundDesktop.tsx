@@ -4,7 +4,7 @@ export default function SidebarBackgroundDesktop() {
       viewBox="0 0 274 568"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className="w-full h-auto"
+      className="h-auto w-full"
     >
       <g clipPath="url(#clip0_2_2)">
         <path

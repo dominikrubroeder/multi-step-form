@@ -1,6 +1,19 @@
-import React, {createContext, Dispatch, ReactNode, useContext, useEffect, useReducer,} from "react";
-import {billingPlans, steps} from "@/data";
-import {AddOn, BillingPeriod, BillingPlan, UserFormField, UserInfo,} from "@/types";
+import React, {
+  createContext,
+  Dispatch,
+  ReactNode,
+  useContext,
+  useEffect,
+  useReducer,
+} from "react";
+import { billingPlans, steps } from "@/data";
+import {
+  AddOn,
+  BillingPeriod,
+  BillingPlan,
+  UserFormField,
+  UserInfo,
+} from "@/types";
 
 // Define the shape of your order
 interface Order {

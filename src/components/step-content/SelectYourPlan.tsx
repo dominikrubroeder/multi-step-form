@@ -12,10 +12,10 @@ export default function SelectYourPlan() {
         {billingPlans.map((billingPlan, index) => (
           <div
             key={index}
-            className={`flex flex-col justify-between gap-1 border rounded-lg p-4 transition cursor-pointer lg:min-h-[10rem] ${
+            className={`flex cursor-pointer flex-col justify-between gap-1 rounded-lg border p-4 transition lg:min-h-[10rem] ${
               billingPlan.title === order.billingPlan.title
-                ? "bg-app-alabaster border-app-purplish-blue"
-                : "bg-transparent border-gray-200"
+                ? "border-app-purplish-blue bg-app-alabaster"
+                : "border-gray-200 bg-transparent"
             }`}
             onClick={() =>
               dispatch({ type: "SET_BILLING_PLAN", payload: billingPlan })
@@ -23,10 +23,10 @@ export default function SelectYourPlan() {
           >
             {billingPlan.icon}
             <div>
-              <h2 className="font-bold text-app-marine-blue mb-0.5">
+              <h2 className="mb-0.5 font-bold text-app-marine-blue">
                 {billingPlan.title}
               </h2>
-              <p className="text-app-cool-gray text-sm">
+              <p className="text-sm text-app-cool-gray">
                 ${getBillingPlanPrice(billingPlan)}
               </p>
               {order.billingPeriod === "Yearly" && (

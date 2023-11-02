@@ -4,7 +4,7 @@ import { useOrder } from "@/context/order-context";
 export default function Confirm() {
   const { dispatch } = useOrder();
   return (
-    <div className="grid gap-8 justify-center items-center h-full">
+    <div className="grid h-full items-center justify-center gap-8">
       <div className="mx-auto">
         <IconThankYou />
       </div>
