@@ -18,7 +18,7 @@ export default function PickAddOns() {
           onClick={() => dispatch({ type: "TOGGLE_ADDON", payload: addOn })}
         >
           <div
-            className={`w-5 h-5 flex items-center justify-center rounded border transition ${
+            className={`flex h-5 w-5 items-center justify-center rounded border transition ${
               addOnIsSelected(addOn) ? "bg-app-purplish-blue" : "bg-transparent"
             }`}
           >
@@ -38,7 +38,7 @@ export default function PickAddOns() {
             </svg>
           </div>
           <div className="flex-1">
-            <h2 className="text-app-marine-blue font-semibold">
+            <h2 className="font-semibold text-app-marine-blue">
               {addOn.title}
             </h2>
             <p className="text-app-cool-gray">{addOn.subline}</p>
